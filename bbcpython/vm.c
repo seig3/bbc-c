@@ -6,21 +6,37 @@
 #include "vm.h"
 
 void pushStack(Stack *stack, Value *value) {
-    writeArray(stack, sizeof(Value), value);
+  //    writeArray(stack, sizeof(Value), value);
+
+  if (stack->meta.capacity < stack ->meta.count + 1) {
+    int oldCapacity = stack ->meta.capacity;
+    stack->meta.capacity = growCapacity(oldCapacity);
+    stack->data = value;
+  }
+  stack->data = value;
+  stack->meta.count++;
 }
 
 void popStack(Stack *stack, Value *value) {
-    popArray(stack, sizeof(Value), value);
+  //    popArray(stack, sizeof(Value), value);
+    stack->meta.count--;
+    value = stack->data ;
 }
 
 void initVM(VM *vm) {
-    initArray(&vm->stack);
-    vm->objects = NULL;
+  //initArray(&vm->stack);
+  //clear vm->stack.data TBD
+  vm->stack.meta.capacity = 0;
+  vm->stack.meta.count = 0;
+  vm->objects = NULL;
 }
 
 void freeVM(VM *vm) {
-    freeArray(&vm->stack);
-    freeObjects(vm);
+  //    freeArray(&vm->stack);
+  //clear vm->stack.data TBD
+  vm->stack.meta.capacity = 0;
+  vm->stack.meta.count = 0;
+  freeObjects(vm);
 }
 
 static uint8_t readByte(VM *vm) {
@@ -36,9 +52,12 @@ static Value *peek(VM *vm, int distance) {
 }
 
 static void runtimeError(VM *vm, const char *format) {
-    unsigned int instruction = vm->ip - vm->chunk->code - 1;
+  unsigned int instruction = vm->ip - vm->chunk->code - (uint8_t)1;
     printf("[line %d] in script: %s\n", getLine(&vm->chunk->lineInfo, instruction), format);
-    freeArray(&vm->stack);
+    //    freeArray(&vm->stack);
+  //clear vm->stack.data TBD
+  vm->stack.meta.capacity = 0;
+  vm->stack.meta.count = 0;
 }
 
 static bool checkArithType(VM *vm, int *a, int *b, Value **value) {
@@ -90,13 +109,14 @@ void concatenate(VM *vm) {
     chars[length] = '\0';
 
     aStr = takeString(chars, length, vm);
-    objVal(aStr, aVal);
+    objVal(aStr->object, aVal);
 }
 
 static InterpretResult run(VM *vm) {
     Value value;
     Value *valuePtr;
     int a, b;
+    Value *constant;
 
     for (;;) {
 #ifdef DEBUG_TRACE_EXECUTION
@@ -114,8 +134,8 @@ static InterpretResult run(VM *vm) {
         uint8_t instruction = readByte(vm);
 
         if (instruction == OP_CONSTANT) {
-            struct Value *constant = readConstant(vm);
-            pushStack(&vm->stack, constant);
+	  //	  constant = readConstant(vm);
+	  //      pushStack(&vm->stack, constant);
         } else if (instruction == OP_NEGATE) {
             valuePtr = peek(vm, 0);
             if (!isInt(valuePtr)) {
