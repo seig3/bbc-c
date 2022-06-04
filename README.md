@@ -5,7 +5,8 @@ fork from https://github.com/TheEnbyperor/bbc-c
 
 under porting
 vm.c:
-        if (instruction == OP_CONSTANT) {
+
+if (instruction == OP_CONSTANT) {
 	
 	  //	  constant = readConstant(vm);
 	  
