@@ -24,7 +24,8 @@ bool isString(Value *value) {
     return isObjType(value, OBJ_STRING);
 }
 
-struct ObjString *asString(Value *value) {
+//struct ObjString *asString(Value *value) {
+ObjString *asString(Value *value) {
     return (ObjString *) asObj(value);
 }
 
@@ -32,7 +33,7 @@ char *asCString(Value *value) {
     return ((ObjString *) asObj(value))->chars;
 }
 
-static ObjString *allocateString(char *chars, int length, struct VM *vm) {
+static ObjString *allocateString(char *chars, int length, VM *vm) {
     ObjString *string;
     string = (ObjString *) allocateObject(sizeof(ObjString), OBJ_STRING, vm);
     string->length = length;
@@ -40,11 +41,11 @@ static ObjString *allocateString(char *chars, int length, struct VM *vm) {
     return string;
 }
 
-ObjString *takeString(char *chars, int length, struct VM *vm) {
+ObjString *takeString(char *chars, int length, VM *vm) {
     return allocateString(chars, length, vm);
 }
 
-ObjString* copyString(const char* chars, int length, struct VM *vm) {
+ObjString* copyString(const char* chars, int length, VM *vm) {
     char* heapChars = reallocate(NULL, length + 1);
     memcpy(heapChars, chars, length);
     heapChars[length] = '\0';
