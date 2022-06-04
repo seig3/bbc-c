@@ -7,8 +7,6 @@ under porting
 vm.c:
 
 if (instruction == OP_CONSTANT) {
-	
-	  //	  constant = readConstant(vm);
-	  
-	  //      pushStack(&vm->stack, constant);
+  //	  constant = readConstant(vm);
+  //      pushStack(&vm->stack, constant);
     
