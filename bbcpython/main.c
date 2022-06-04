@@ -7,7 +7,7 @@ static void repl(struct VM *vm) {
   for (;;) {
     printf(">>> ");
 
-    if (!gets(line, sizeof(line))) {
+    if (!fgets(line, sizeof(line),stdin)) {
       printf("\nBye!\n");
       break;
     }
