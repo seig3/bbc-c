@@ -14,7 +14,7 @@ void writeChunk(Chunk* chunk, uint8_t byte, unsigned int lineNum) {
   writeArray(chunk, sizeof(uint8_t), &byte);
 }
 
-int addConstant(Chunk* chunk, struct Value *value) {
+int addConstant(Chunk* chunk, Value *value) {
   writeValueArray(&chunk->constants, value);
   return chunk->constants.meta.count - 1;
 }
