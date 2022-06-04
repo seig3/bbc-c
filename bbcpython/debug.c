@@ -33,9 +33,12 @@ void writeLine(LineInfoArray* array, unsigned int offset, unsigned int lineNum) 
   writeLineInfoArray(array, &info);
 }
 
-static int simpleInstruction(const char* name, int offset);
-static int constantInstruction(const char* name, struct Chunk* chunk, int offset);
-static int longConstantInstruction(const char* name, struct Chunk* chunk, int offset);
+//static int simpleInstruction(const char* name, int offset);
+//static unsigned int constantInstruction(const char* name, struct Chunk* chunk, int offset);
+//static unsigned int longConstantInstruction(const char* name, struct Chunk* chunk, int offset);
+static unsigned int simpleInstruction(const char* name, unsigned int offset);
+static unsigned int constantInstruction(const char* name, Chunk* chunk, unsigned int offset);
+static unsigned int longConstantInstruction(const char* name, Chunk* chunk, unsigned int offset);
 
 void disassembleChunk(Chunk* chunk, const char* name) {
   printf("== %s ==\n", name);
