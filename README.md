@@ -1,14 +1,6 @@
 # pyzoon
 a simple python interpreter for MSX, with Z88DK.
 
-fork from https://github.com/TheEnbyperor/bbc-c
+fork from [https://github.com/TheEnbyperor/bbc-c](https://github.com/TheEnbyperor/bbc-c/tree/master/bbcpython)
 
-under porting
-vm.c:
-
-if (instruction == OP_CONSTANT) {
-
-//	  constant = readConstant(vm);
-
-//      pushStack(&vm->stack, constant);
-    
+under porting.
