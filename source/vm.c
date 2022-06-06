@@ -116,7 +116,6 @@ static InterpretResult run(VM *vm) {
     Value value;
     Value *valuePtr;
     int a, b;
-    Value *constant;
 
     for (;;) {
 #ifdef DEBUG_TRACE_EXECUTION
@@ -134,8 +133,9 @@ static InterpretResult run(VM *vm) {
         uint8_t instruction = readByte(vm);
 
         if (instruction == OP_CONSTANT) {
-	  //	  constant = readConstant(vm);
+	  //	  struct constant = readConstant(vm);
 	  //      pushStack(&vm->stack, constant);
+	  pushStack(&vm->stack, readConstant(vm) );
         } else if (instruction == OP_NEGATE) {
             valuePtr = peek(vm, 0);
             if (!isInt(valuePtr)) {
