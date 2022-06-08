@@ -6,37 +6,43 @@
 #include "vm.h"
 
 void pushStack(Stack *stack, Value *value) {
-  //    writeArray(stack, sizeof(Value), value);
-
-  if (stack->meta.capacity < stack ->meta.count + 1) {
+  writeArray(stack, sizeof(Value), value);
+  /*
+    if (stack->meta.capacity < stack ->meta.count + 1) {
     int oldCapacity = stack ->meta.capacity;
     stack->meta.capacity = growCapacity(oldCapacity);
     stack->data = value;
-  }
-  stack->data = value;
-  stack->meta.count++;
+    }
+    stack->data = value;
+    stack->meta.count++;
+  */
 }
 
 void popStack(Stack *stack, Value *value) {
-  //    popArray(stack, sizeof(Value), value);
+  popArray(stack, sizeof(Value), value);
+  /*
     stack->meta.count--;
     value = stack->data ;
+  */
 }
 
 void initVM(VM *vm) {
-  //initArray(&vm->stack);
-  //clear vm->stack.data TBD
+  initArray(&vm->stack);
+  vm->objects = NULL;
+  /*
   vm->stack.meta.capacity = 0;
   vm->stack.meta.count = 0;
-  vm->objects = NULL;
+  */
 }
 
 void freeVM(VM *vm) {
-  //    freeArray(&vm->stack);
-  //clear vm->stack.data TBD
-  vm->stack.meta.capacity = 0;
-  vm->stack.meta.count = 0;
+  freeArray(&vm->stack);
   freeObjects(vm);
+  /*
+    vm->stack.meta.capacity = 0;
+    vm->stack.meta.count = 0;
+  */
+
 }
 
 static uint8_t readByte(VM *vm) {
@@ -54,10 +60,11 @@ static Value *peek(VM *vm, int distance) {
 static void runtimeError(VM *vm, const char *format) {
   unsigned int instruction = vm->ip - vm->chunk->code - (uint8_t)1;
     printf("[line %d] in script: %s\n", getLine(&vm->chunk->lineInfo, instruction), format);
-    //    freeArray(&vm->stack);
-  //clear vm->stack.data TBD
+    freeArray(&vm->stack);
+    /*
   vm->stack.meta.capacity = 0;
   vm->stack.meta.count = 0;
+    */
 }
 
 static bool checkArithType(VM *vm, int *a, int *b, Value **value) {
