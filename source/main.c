@@ -2,7 +2,7 @@
 #include "debug.h"
 #include "vm.h"
 
-static void repl(struct VM *vm) {
+static void repl(VM *vm) {
   char line[255];
   for (;;) {
     printf(">>> ");
