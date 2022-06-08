@@ -109,7 +109,7 @@ void concatenate(VM *vm) {
     chars[length] = '\0';
 
     aStr = takeString(chars, length, vm);
-    objVal(aStr->object, aVal);
+    objVal(aStr->object.next, aVal);
 }
 
 static InterpretResult run(VM *vm) {
